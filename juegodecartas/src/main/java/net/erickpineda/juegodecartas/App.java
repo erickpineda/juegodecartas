@@ -1,13 +1,21 @@
 package net.erickpineda.juegodecartas;
 
 /**
- * Hello world!
- *
+ * Programa que permeti simular el
+	funcionament d'un joc de cartes anomenat «La carta més alta».
+ * 
+ * @author Erick Pineda
+ * 
  */
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        App ejec = new App();
+        ejec.iniciar();
+    }
+    
+    public void iniciar(){
+    	
     }
 }
