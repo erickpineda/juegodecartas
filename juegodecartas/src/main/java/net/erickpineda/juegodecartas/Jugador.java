@@ -2,7 +2,7 @@ package net.erickpineda.juegodecartas;
 
 import java.io.Serializable;
 
-public class Jugador {
+public class Jugador implements Serializable {
 
 	/**
 	 * Nombre que tendrá el jugador
