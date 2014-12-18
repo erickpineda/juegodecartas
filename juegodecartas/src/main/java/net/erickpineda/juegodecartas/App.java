@@ -21,5 +21,4 @@ public class App {
 		@SuppressWarnings("unused")
 		Juego juego = new Juego(nombres);
 	}
-
 }

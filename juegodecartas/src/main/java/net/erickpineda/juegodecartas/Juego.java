@@ -68,7 +68,7 @@ public class Juego {
 	 * 
 	 * @param nombres
 	 *            Array de string que contendrá los nombres de los
-	 *            participantes.
+	 *            participantes
 	 */
 	public Juego(String[] nombres) {
 		jugones = new ArrayList<Jugador>();
