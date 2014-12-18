@@ -176,7 +176,7 @@ public class Juego {
 			jugones.add(new Jugador(nombresJugadores[i], getDinero(4), cartas));
 			System.out.println(jugones.get(i));
 		}
-		oos.writeObject(jugones.get(0));
+		oos.writeObject(jugones.get(0)); // Guardo el primer jugador
 	}
 
 	/**
