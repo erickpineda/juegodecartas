@@ -1,10 +1,5 @@
 package net.erickpineda.juegodecartas;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
 /**
  * Programa que permeti simular el funcionament d'un joc de cartes anomenat «La
  * carta més alta».
@@ -13,12 +8,18 @@ import java.util.Random;
  * 
  */
 public class App {
+	/**
+	 * Nombres de los participantes
+	 */
+	private static String[] nombres = { "Tarma", "Marco", "Fio", "Eri" };
+
+	/**
+	 * Método principal del programa que crea el juego de la carta más alta.
+	 */
 	public static void main(String[] args) {
-		Juego juego = new Juego();
+
+		@SuppressWarnings("unused")
+		Juego juego = new Juego(nombres);
 	}
-	
-	public void jugar(){
-		
-	}
-	
+
 }

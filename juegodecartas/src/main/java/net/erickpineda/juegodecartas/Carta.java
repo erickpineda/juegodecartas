@@ -1,6 +1,12 @@
 package net.erickpineda.juegodecartas;
 
-public class Carta {
+import java.io.Serializable;
+
+public class Carta implements Serializable {
+	/**
+	 * Identificador de la clase.
+	 */
+	private static final long serialVersionUID = -7334904955252156074L;
 	/*
 	 * Picas, Diamantes, Trebol, Corazón
 	 */
@@ -21,6 +27,26 @@ public class Carta {
 	public Carta(final String tipoPalos, final int tipoCara) {
 		this.cara = tipoCara;
 		this.palo = tipoPalos;
+	}
+
+	/**
+	 * Método que cambia el valor de una carta.
+	 * 
+	 * @param v
+	 *            Nuevo valor que tendrá la carta
+	 */
+	public void setValorCarta(int v) {
+		this.cara = v;
+	}
+
+	/**
+	 * Método que cambia el palo de una carta.
+	 * 
+	 * @param p
+	 *            Nombre del palo que será la carta
+	 */
+	public void setPaloCarta(String p) {
+		this.palo = p;
 	}
 
 	/**

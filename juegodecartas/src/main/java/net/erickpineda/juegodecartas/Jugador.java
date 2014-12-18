@@ -5,6 +5,10 @@ import java.io.Serializable;
 public class Jugador implements Serializable {
 
 	/**
+	 * Identificador de la clase.
+	 */
+	private static final long serialVersionUID = -3309153659945344570L;
+	/**
 	 * Nombre que tendrá el jugador
 	 */
 	private String nombreJugador;
@@ -52,10 +56,30 @@ public class Jugador implements Serializable {
 	 * @param i
 	 *            posicion en mano del jugador
 	 * @param c
-	 *            carta a cambiar
+	 *            carta a dar
 	 */
 	public void setCarta(int i, Carta c) {
 		this.carta = c;
+	}
+
+	/**
+	 * Método que permite cambiar el nombre a un Jugador.
+	 * 
+	 * @param n
+	 *            Pasa por parámetro el nuevo nombre
+	 */
+	public void setNombre(String n) {
+		this.nombreJugador = n;
+	}
+
+	/**
+	 * Método que permite cambiar el dinero a un Jugador.
+	 * 
+	 * @param d
+	 *            Pasa por parámetro el nuevo valor de dinero
+	 */
+	public void setDinero(int d) {
+		this.monedas = d;
 	}
 
 	/**
