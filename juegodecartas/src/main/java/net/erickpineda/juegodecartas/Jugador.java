@@ -51,7 +51,7 @@ public class Jugador implements Serializable {
 	}
 
 	/**
-	 * Cambia la carta que tiene el jugador.
+	 * Cambia una carta de las que tiene el jugador en mano.
 	 * 
 	 * @param i
 	 *            posicion en mano del jugador
@@ -59,6 +59,16 @@ public class Jugador implements Serializable {
 	 *            carta a dar
 	 */
 	public void setCarta(int i, Carta c) {
+		this.carta = c;
+	}
+
+	/**
+	 * Cambia carta única del jugador.
+	 * 
+	 * @param c
+	 *            Carta a dar
+	 */
+	public void setCarta(Carta c) {
 		this.carta = c;
 	}
 
