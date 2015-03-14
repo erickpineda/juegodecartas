@@ -118,7 +118,6 @@ public class Jugador implements Serializable {
 	public Carta getCartaJugador() {
 		return this.carta;
 	}
-
 	/**
 	 * Método que concatena el jugador, dinero en monedas y carta en mano de
 	 * éste.

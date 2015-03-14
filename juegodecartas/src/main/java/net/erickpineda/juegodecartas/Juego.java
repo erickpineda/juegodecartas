@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -19,8 +22,7 @@ public class Juego {
 	/**
 	 * Pote de dinero para el ganador o ganadores.
 	 */
-	@SuppressWarnings("unused")
-	private static int DINERO_TOTAL;
+	private static double DINERO_TOTAL = 1;
 	/**
 	 * Carta más alta entre los Jugadores.
 	 */
@@ -93,12 +95,10 @@ public class Juego {
 				crearFichero();
 				crearJugadores(0);
 				partidaNueva();
-
 			} else {
 				// Abrir el fichero y leerlo
 				abrirFichero();
 				partidaAntigua();
-
 			}
 
 			getCartaAlta(jugones);
@@ -117,7 +117,7 @@ public class Juego {
 					oos.close();
 				if (ois != null)
 					ois.close();
-				// eliminarFichero(saveGame); // El fichero se eliminará siempre
+				eliminarFichero(saveGame); // El fichero se eliminará siempre
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -155,7 +155,7 @@ public class Juego {
 	public static void abrirFichero() throws ClassNotFoundException,
 			IOException {
 
-		System.out.println("\n**Ya existe una partida guardada del juego***\n");
+		System.out.println("\n** REANUDANDO PARTIDA ***\n");
 		fis = new FileInputStream(miFichero);
 		ois = new ObjectInputStream(fis);
 
@@ -177,13 +177,13 @@ public class Juego {
 
 		Carta carta;
 
-		System.out.println("-->> PARTICIPANTES\n");
+		System.out.println("-->> PARTIDA NUEVA: PARTICIPANTES\n");
 
 		for (int i = pos; i < nombresJugadores.length; i++) {
 			// Se descuenta una carta
 			carta = baraja.repartirCartas();
 			jugones.add(new Jugador(nombresJugadores[i], getDinero(4), carta));
-
+			DINERO_TOTAL++;
 		}
 	}
 
@@ -210,19 +210,32 @@ public class Juego {
 	 *            creados en algún momento.
 	 */
 	public static void getCartaAlta(List<Jugador> lista) {
-		Jugador j = null;
 
-		for (int i = 0; i < lista.size(); i++) {
-			int miCarta = lista.get(i).getCartaJugador().getValorCarta();
+		String[] ganadores = new String[lista.size()];
 
-			if (miCarta > masAlta) {
-				masAlta = miCarta;
-				j = lista.get(i);
+		ordenaLista(lista);
+
+		int pos = 0, ronda = 91;
+		Iterator<Jugador> itera = lista.iterator();
+
+		for (int i = 0; i < ronda; i++) {
+
+			while (itera.hasNext()) {
+				Jugador participante = itera.next();
+
+				masAlta = lista.get(0).getCartaJugador().getValorCarta();
+				int miCarta = lista.get(pos).getCartaJugador().getValorCarta();
+
+				if (miCarta == masAlta)
+					ganadores[pos] = lista.get(pos).getNombre();
+
+				if (ganadores[pos] != null)
+					System.out.println("\nGANADOR!! " + participante
+							+ " Dinero: " + DINERO_TOTAL);
+				pos++;
 			}
-			System.out.println("*** FALTA IMPLEMENTAR ***");
+
 		}
-		System.out.println("\n--> El ganador es:");
-		System.out.println(j + "\n");
 	}
 
 	/**
@@ -242,7 +255,8 @@ public class Juego {
 		Jugador jugadorExistente = (Jugador) ois.readObject();
 		jugones.add(jugadorExistente);
 
-		System.out.println("- Jugador Existente: " + "\n" + jugadorExistente + "\n");
+		System.out.println("- Jugador Existente: " + "\n" + jugadorExistente
+				+ "\n");
 
 		// Vuelta a crear los jugadores desde el punto de guardado
 		crearJugadores(1);
@@ -253,6 +267,18 @@ public class Juego {
 			}
 		}
 
+	}
+
+	public static void ordenaLista(List<Jugador> lista) {
+		Collections.sort(lista, new Comparator<Jugador>() {
+
+			public int compare(Jugador j1, Jugador j2) {
+				return new Integer(j2.getCartaJugador().getValorCarta())
+						.compareTo(new Integer(j1.getCartaJugador()
+								.getValorCarta()));
+			}
+
+		});
 	}
 
 	/**
@@ -269,6 +295,26 @@ public class Juego {
 		} else {
 			System.out.println(pathFile + " no se ha podido borrar!");
 		}
+	}
+
+	/**
+	 * 
+	 * @return Retorna los jugadores en la partida.
+	 */
+	public int getNumeroJugadores() {
+		return jugones.size();
+	}
+
+	/**
+	 * Método que remueve un jugador de la partida.
+	 * 
+	 * @param jugon
+	 *            Jugador a remover.
+	 * @return Retorna a la nueva lista de jugadores, después de remover un
+	 *         jugador.
+	 */
+	public boolean removerJugador(Jugador jugon) {
+		return jugones.remove(jugon);
 	}
 
 	/**
